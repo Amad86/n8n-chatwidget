@@ -422,10 +422,8 @@
 
             const botMessageDiv = document.createElement('div');
             botMessageDiv.className = 'chat-message bot';
-            botMessageDiv.innerHTML = typeof marked !== 'undefined'
-              ? marked.parse(responseData[0]?.output || responseData.output)
-              : (responseData[0]?.output || responseData.output);
-            
+            botMessageDiv.innerHTML = responseOutput;
+
 
             messagesContainer.appendChild(botMessageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
