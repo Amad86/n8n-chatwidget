@@ -1,0 +1,85 @@
+/* widget.css */
+
+:root {
+  --hallo-stroom-blue:      #1477D7;
+  --hallo-stroom-darker:    #005EC6;
+  --hallo-stroom-header-bg: #fff;
+  --hallo-stroom-header-fc: #1477D7;
+  --hallo-stroom-body-bg:   #f7f8fc;
+  --hallo-stroom-bot-bg:    #fff;
+  --hallo-stroom-bot-fc:    #333;
+  --hallo-stroom-user-fc:   #fff;
+  --toggle-size:            58px;
+  --toggle-icon-size:       26px;
+}
+
+/* Scope al je theme-props in één selector: */
+.n8n-chat {
+  --chat-primary-color:              var(--hallo-stroom-blue)          !important;
+  --chat-secondary-color:            var(--hallo-stroom-darker)        !important;
+  --chat-header-background-color:    var(--hallo-stroom-header-bg)     !important;
+  --chat-header-font-color:          var(--hallo-stroom-header-fc)     !important;
+  --chat-widget-background-color:    var(--hallo-stroom-body-bg)       !important;
+  --chat-message-bot-background-color: var(--hallo-stroom-bot-bg)       !important;
+  --chat-message-bot-font-color:     var(--hallo-stroom-bot-fc)        !important;
+  --chat-message-user-background-color: var(--hallo-stroom-blue)       !important;
+  --chat-message-user-font-color:    var(--hallo-stroom-user-fc)       !important;
+  --chat-button-background-color:    var(--hallo-stroom-blue)          !important;
+  --chat-button-font-color:          var(--hallo-stroom-user-fc)       !important;
+}
+
+/* Header */
+.n8n-chat .chat-header {
+  padding: 15px !important;
+  background: var(--chat-header-background-color) !important;
+  border-bottom: 1px solid #eee !important;
+}
+.n8n-chat .chat-header h1 {
+  font: 600 22px/1 sans-serif !important;
+  color: var(--hallo-stroom-header-fc) !important;
+}
+.n8n-chat .chat-header h1::before {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 28px;
+  margin-right: 8px;
+  background: url(https://www.hallostroom.nl/media/...png) no-repeat center/contain;
+}
+
+/* Body-fonts & bubbles */
+.n8n-chat .chat-message-markdown,
+.n8n-chat .vue-markdown,
+.n8n-chat .chat-input-textarea {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Toggle button */
+.n8n-chat .chat-window-toggle {
+  width: var(--toggle-size)  !important;
+  height: var(--toggle-size) !important;
+  background: linear-gradient(145deg, var(--hallo-stroom-darker), var(--hallo-stroom-blue)) !important;
+  border-radius:50% !important;
+  box-shadow:
+    0 6px 12px rgba(0,50,100,.25),
+    inset 0 2px 2px rgba(255,255,255,.35),
+    inset 0 -2px 2px rgba(0,0,0,.1) !important;
+  transition: .2s !important;
+  border:1px solid rgba(0,0,0,.1) !important;
+}
+.n8n-chat .chat-window-toggle:hover {
+  background: linear-gradient(145deg, var(--hallo-stroom-blue), var(--hallo-stroom-darker)) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow:
+    0 8px 16px rgba(0,50,100,.3),
+    inset 0 2px 3px rgba(255,255,255,.4),
+    inset 0 -2px 3px rgba(0,0,0,.15) !important;
+}
+.n8n-chat .chat-window-toggle svg {
+  width: var(--toggle-icon-size) !important;
+  height: var(--toggle-icon-size) !important;
+  fill: var(--hallo-stroom-user-fc) !important;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.2));
+}
+
+/* … voeg hier de rest (user/bot bubbles, toggle-tekst, etc.) samen … */
