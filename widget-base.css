@@ -1,0 +1,176 @@
+/* widget-base.css - Algemene styling en overrides voor de n8n chat widget */
+
+/* CSS Variabelen die per implementatie worden overschreven in de HTML */
+:root {
+    --hallo-stroom-blue: #1477D7; /* Default/voorbeeld, wordt overschreven */
+    --hallo-stroom-darker-blue: #005EC6;
+    --hallo-stroom-header-bg: #FFFFFF;
+    --hallo-stroom-header-font: var(--hallo-stroom-blue);
+    --hallo-stroom-widget-body-bg: #f7f8fc;
+    --hallo-stroom-bot-message-bg: #ffffff;
+    --hallo-stroom-bot-message-font: #333333;
+    --hallo-stroom-user-message-font: #ffffff;
+    --chat-toggle-button-size: 58px;
+    --chat-toggle-icon-size: 26px;
+    --chat-toggle-text-label-font-color: var(--hallo-stroom-blue);
+    --chat-toggle-text-bubble-bg-start: #197EF0; /* Voor 3D bubbel */
+    --chat-toggle-text-bubble-bg-end: var(--hallo-stroom-blue);
+}
+
+.n8n-chat {
+    --chat-primary-color: var(--hallo-stroom-blue) !important;
+    --chat-secondary-color: var(--hallo-stroom-darker-blue) !important;
+    --chat-header-background-color: var(--hallo-stroom-header-bg) !important;
+    --chat-header-font-color: var(--hallo-stroom-header-font) !important;
+    --chat-widget-background-color: var(--hallo-stroom-widget-body-bg) !important;
+    --chat-message-bot-background-color: var(--hallo-stroom-bot-message-bg) !important;
+    --chat-message-bot-font-color: var(--hallo-stroom-bot-message-font) !important;
+    --chat-message-user-background-color: var(--hallo-stroom-blue) !important;
+    --chat-message-user-font-color: var(--hallo-stroom-user-message-font) !important;
+    --chat-button-background-color: var(--hallo-stroom-blue) !important;
+    --chat-button-font-color: var(--hallo-stroom-user-message-font) !important;
+}
+
+.n8n-chat .chat-header {
+    padding: 15px !important;
+    background-color: var(--chat-header-background-color) !important;
+    border-bottom: 1px solid #eeeeee !important;
+    display: flex;
+    align-items: center;
+}
+
+/* CSS voor het logo ALS de widget het via config plaatst */
+.n8n-chat .chat-header-brand-logo,
+.n8n-chat .chat-header img[data-chat-logo="true"] /* Hypothetische selector als widget data-attr gebruikt */ {
+    width: 28px !important;
+    height: 28px !important;
+    margin-right: 10px !important;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+/* Als je de ::before methode nodig hebt omdat de config niet werkt: */
+/*
+.n8n-chat .chat-header h1::before {
+    content: ''; display: inline-block; width: 28px; height: 28px;
+    background-image: var(--hallo-stroom-logo-url, none);
+    background-size: contain; background-repeat: no-repeat; background-position: center;
+    margin-right: 10px; flex-shrink: 0;
+}
+*/
+
+.n8n-chat .chat-header h1 {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    color: var(--hallo-stroom-header-font) !important;
+    margin: 0;
+}
+
+.n8n-chat .chat-header p { /* Subtitel */
+    font-size: 13px !important;
+    margin-left: 10px;
+    color: #777777 !important;
+    opacity: 1;
+}
+
+.n8n-chat .chat-message-markdown,
+.n8n-chat .chat-message .vue-markdown,
+.n8n-chat .chat-message.user p,
+.n8n-chat .chat-message.bot p {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+
+.n8n-chat .chat-input-textarea {
+    font-size: 14px !important;
+}
+
+/* Toggle knop styling - Wit met blauw icoon */
+.n8n-chat .chat-window-toggle {
+    background: var(--chat-toggle-button-bg, #FFFFFF) !important; /* Default wit als var niet gezet is */
+    width: var(--chat-toggle-button-size) !important;
+    height: var(--chat-toggle-button-size) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    box-shadow: 0 4px 10px var(--chat-toggle-button-shadow-color, rgba(0,0,0,0.15)) !important;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+    border: 1px solid var(--chat-toggle-button-border-color, #e0e0e0) !important;
+    position: relative;
+    z-index: 1000;
+}
+.n8n-chat .chat-window-toggle:hover {
+    background: var(--chat-toggle-button-hover-bg, #f8f8f8) !important;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 15px var(--chat-toggle-button-shadow-color, rgba(0,0,0,0.2)) !important;
+}
+.n8n-chat .chat-window-toggle svg {
+    width: var(--chat-toggle-icon-size) !important;
+    height: var(--chat-toggle-icon-size) !important;
+    fill: var(--chat-toggle-button-icon-color, var(--hallo-stroom-blue)) !important; /* Default blauw */
+}
+
+/* Tekst LABEL NAAST de knop */
+.n8n-chat .chat-toggle-text-label {
+    position: fixed;
+    bottom: calc(20px + (var(--chat-toggle-button-size) / 2));
+    right: calc(20px + var(--chat-toggle-button-size) + 10px);
+    transform: translateY(-50%);
+    padding: 6px 12px;
+    background-color: transparent;
+    color: var(--chat-toggle-text-label-font-color);
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    border-radius: 6px;
+    white-space: nowrap;
+    z-index: 998;
+    opacity: 0; /* Start verborgen, JS maakt zichtbaar */
+    transition: opacity 0.3s ease-out;
+    pointer-events: none;
+}
+.n8n-chat .chat-toggle-text-label.position-left {
+    right: auto;
+    left: calc(20px + var(--chat-toggle-button-size) + 10px);
+}
+.n8n-chat .chat-toggle-text-label.visible {
+    opacity: 1;
+    pointer-events: auto; /* Alleen interactief als zichtbaar */
+}
+.n8n-chat .chat-toggle-text-label.hidden-by-js { /* Wordt door JS gebruikt */
+    display: none !important;
+}
+
+
+/* User/Bot message styling */
+.n8n-chat .chat-message.chat-message-from-user {
+    background: none !important; border: none !important;
+}
+.n8n-chat .chat-message.chat-message-from-user .chat-message-markdown,
+.n8n-chat .chat-message.chat-message-from-user .vue-markdown {
+    background-color: var(--hallo-stroom-blue) !important; background-image: none !important;
+    color: var(--hallo-stroom-user-message-font) !important; padding: 10px 14px !important;
+    border-radius: 12px 12px 0 12px !important;
+}
+.n8n-chat .chat-message.chat-message-from-user .chat-message-markdown *,
+.n8n-chat .chat-message.chat-message-from-user .vue-markdown * {
+    color: var(--hallo-stroom-user-message-font) !important; background: none !important;
+}
+
+.n8n-chat .chat-message.chat-message-from-bot .chat-message-markdown,
+.n8n-chat .chat-message.chat-message-from-bot .vue-markdown {
+    background: var(--hallo-stroom-bot-message-bg) !important; color: var(--hallo-stroom-bot-message-font) !important;
+    border: none !important; padding: 10px 14px !important;
+    border-radius: 12px 12px 12px 0 !important; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.n8n-chat .chat-message.chat-message-from-bot .chat-message-markdown *,
+.n8n-chat .chat-message.chat-message-from-bot .vue-markdown * {
+     color: var(--hallo-stroom-bot-message-font) !important;
+}
+
+.n8n-chat .chat-input-send-button {
+    background: var(--hallo-stroom-blue) !important; color: var(--hallo-stroom-user-message-font) !important;
+}
+.n8n-chat .chat-input-send-button svg {
+    fill: var(--hallo-stroom-user-message-font) !important;
+}
